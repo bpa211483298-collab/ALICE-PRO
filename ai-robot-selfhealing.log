@@ -1,0 +1,5 @@
+﻿[2025-08-31 13:43:33] Starting project AIRobotProject-0002
+[2025-08-31 13:43:35] DeepSeek fetch error: The remote server returned an error: (402) Payment Required.
+[2025-08-31 13:43:36] OpenAI fetch error: The remote server returned an error: (429) Too Many Requests.
+[2025-08-31 13:43:37] Blackbox fetch error: The remote server returned an error: (404) Not Found.
+[2025-08-31 13:43:37] Building project...

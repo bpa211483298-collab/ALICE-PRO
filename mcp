@@ -1,0 +1,114 @@
+#!/bin/bash
+
+# MCP Service Manager
+# A simple script to manage MCP services
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Check if Docker is running
+check_docker() {
+    if ! docker info > /dev/null 2>&1; then
+        echo -e "${RED}Error: Docker is not running. Please start Docker Desktop and try again.${NC}"
+        exit 1
+    fi
+}
+
+# Start services
+start() {
+    check_docker
+    echo -e "${GREEN}Starting MCP services...${NC}"
+    docker-compose up -d
+    echo -e "${GREEN}MCP services started!${NC}"
+    echo -e "\nAccess the MCP Gateway at: ${YELLOW}http://localhost:8080${NC}"
+}
+
+# Stop services
+stop() {
+    echo -e "${YELLOW}Stopping MCP services...${NC}"
+    docker-compose down
+    echo -e "${GREEN}MCP services stopped.${NC}"
+}
+
+# Restart services
+restart() {
+    stop
+    start
+}
+
+# Show status
+status() {
+    check_docker
+    echo -e "${YELLOW}MCP Services Status:${NC}"
+    docker-compose ps
+    
+    echo -e "\n${YELLOW}Service URLs:${NC}"
+    echo "- MCP Gateway: http://localhost:8080"
+    echo "- Git MCP:     http://localhost:8080/git/"
+    echo "- Filesystem:  http://localhost:8080/filesystem/"
+    echo "- Terminal:    http://localhost:8080/terminal/"
+    echo "- Docker:      http://localhost:8080/docker/"
+    echo "- MinIO:       http://localhost:9001 (admin/minioadmin)"
+    echo "- PostgreSQL:  localhost:5432 (alice/alice123)"
+}
+
+# Show logs
+logs() {
+    if [ -z "$1" ]; then
+        docker-compose logs -f
+    else
+        docker-compose logs -f "$1"
+    fi
+}
+
+# Run tests
+test() {
+    php test-mcp-local.php
+}
+
+# Show help
+help() {
+    echo -e "${YELLOW}MCP Service Manager${NC}"
+    echo "Usage: ./mcp [command]"
+    echo ""
+    echo "Commands:"
+    echo "  start     Start all MCP services"
+    echo "  stop      Stop all MCP services"
+    echo "  restart   Restart all MCP services"
+    echo "  status    Show status of MCP services"
+    echo "  logs      Show logs (use: ./mcp logs [service])"
+    echo "  test      Run connectivity tests"
+    echo "  help      Show this help message"
+    echo ""
+}
+
+# Main script
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    status)
+        status
+        ;;
+    logs)
+        shift
+        logs "$@"
+        ;;
+    test)
+        test
+        ;;
+    *)
+        help
+        ;;
+esac
+
+exit 0
