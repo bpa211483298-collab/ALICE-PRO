@@ -1,216 +1,23 @@
 {
-  "$schema": "./schemas/mcp-service.schema.json",
-  "version": "1.0.0",
-  "services": [
-    {
-      "id": "filesystem-mcp",
-      "name": "Filesystem MCP",
-      "description": "Read/write project files, search repository, manage open editors",
-      "category": "core",
-      "endpoint": "http://filesystem-mcp:8080",
-      "capabilities": ["read", "write", "search", "file_operations"],
-      "auth": {
-        "type": "api_key",
-        "env": "FILESYSTEM_MCP_KEY"
-      }
-    },
-    {
-      "id": "git-mcp",
-      "name": "Git MCP",
-      "description": "Git operations including branch management, PRs, and commits",
-      "category": "core",
-      "endpoint": "http://git-mcp:8080",
-      "capabilities": ["git_operations", "branch_management", "pr_workflow"],
-      "auth": {
-        "type": "ssh_key"
-      }
-    },
-    {
-      "id": "terminal-mcp",
-      "name": "Terminal MCP",
-      "description": "Run shell commands in a sandboxed container (read-only by default)",
-      "category": "core",
-      "endpoint": "http://terminal-mcp:8080",
-      "capabilities": ["command_execution", "sandboxed"],
-      "default_params": {
-        "readonly": true
-      }
-    },
-    {
-      "id": "docker-mcp",
-      "name": "Docker MCP",
-      "description": "Build and manage Docker containers, inspect images",
-      "category": "core",
-      "endpoint": "http://docker-mcp:8080",
-      "capabilities": ["container_management", "image_management"],
-      "requires": ["docker_socket"]
-    },
-    {
-      "id": "repl-mcp",
-      "name": "REPL MCP",
-      "description": "Execute code snippets in multiple languages (Python/Node/Go) and return output",
-      "category": "core",
-      "endpoint": "http://repl-mcp:8080",
-      "capabilities": ["code_execution"],
-      "supported_languages": ["python", "javascript", "go", "ruby"]
-    },
-    {
-      "id": "vscode-ext-mcp",
-      "name": "VS Code Extension MCP",
-      "description": "Bridge between LLM and VS Code workspace for file operations and edits",
-      "category": "core",
-      "endpoint": "ws://vscode-ext-mcp:8080",
-      "capabilities": ["file_editing", "workspace_management"],
-      "protocol": "ws"
-    },
-    {
-      "id": "code-runner-mcp",
-      "name": "Code Runner MCP",
-      "description": "Execute test suites and report failures in CI-style format",
-      "category": "core",
-      "endpoint": "http://code-runner-mcp:8080",
-      "capabilities": ["test_execution", "ci_reporting"]
-    },
-    {
-      "id": "linter-mcp",
-      "name": "Linter MCP",
-      "description": "Run various linters (ESLint/flake8/clang-tidy) and return diagnostics",
-      "category": "core",
-      "endpoint": "http://linter-mcp:8080",
-      "capabilities": ["static_analysis", "code_quality"],
-      "supported_linters": ["eslint", "flake8", "clang-tidy"]
-    },
-    {
-      "id": "ci-mcp",
-      "name": "CI/CD MCP",
-      "description": "Interact with CI/CD pipelines (GitHub Actions/GitLab CI)",
-      "category": "ci_cd",
-      "endpoint": "http://ci-mcp:8080",
-      "capabilities": ["workflow_trigger", "log_retrieval"],
-      "auth": {
-        "type": "oauth2"
-      }
-    },
-    {
-      "id": "registry-mcp",
-      "name": "Package Registry MCP",
-      "description": "Interact with package registries (npm/pypi/artifactory)",
-      "category": "ci_cd",
-      "endpoint": "http://registry-mcp:8080",
-      "capabilities": ["package_inspection", "version_management"]
-    },
-    {
-      "id": "deploy-mcp",
-      "name": "Deployment MCP",
-      "description": "Deploy to platforms like Vercel/Netlify/Render",
-      "category": "ci_cd",
-      "endpoint": "http://deploy-mcp:8080",
-      "capabilities": ["deployment", "preview_sites"]
-    },
-    {
-      "id": "dockerhub-mcp",
-      "name": "Docker Hub MCP",
-      "description": "Manage Docker images and tags",
-      "category": "ci_cd",
-      "endpoint": "http://dockerhub-mcp:8080",
-      "capabilities": ["image_management", "registry_operations"]
-    },
-    {
-      "id": "terraform-mcp",
-      "name": "Terraform MCP",
-      "description": "Plan and apply infrastructure as code",
-      "category": "ci_cd",
-      "endpoint": "http://terraform-mcp:8080",
-      "capabilities": ["infrastructure_planning", "infrastructure_management"],
-      "default_params": {
-        "readonly": true
-      }
-    },
-    {
-      "id": "postgres-mcp",
-      "name": "PostgreSQL MCP",
-      "description": "Query schema and run SELECT queries",
-      "category": "database",
-      "endpoint": "http://postgres-mcp:8080",
-      "capabilities": ["database_query", "schema_inspection"],
-      "default_params": {
-        "readonly": true
-      }
-    },
-    {
-      "id": "supabase-mcp",
-      "name": "Supabase MCP",
-      "description": "CRUD operations and migrations for Supabase",
-      "category": "database",
-      "endpoint": "http://supabase-mcp:8080",
-      "capabilities": ["crud_operations", "migrations"]
-    },
-    {
-      "id": "redis-mcp",
-      "name": "Redis MCP",
-      "description": "Inspect Redis keys and TTLs",
-      "category": "database",
-      "endpoint": "http://redis-mcp:8080",
-      "capabilities": ["key_value_operations", "cache_management"]
-    },
-    {
-      "id": "s3-mcp",
-      "name": "S3 MCP",
-      "description": "Interact with S3-compatible storage",
-      "category": "storage",
-      "endpoint": "http://s3-mcp:8080",
-      "capabilities": ["file_storage", "bucket_management"]
-    },
-    {
-      "id": "secrets-mgr-mcp",
-      "name": "Secrets Manager MCP",
-      "description": "Manage application secrets securely",
-      "category": "security",
-      "endpoint": "http://secrets-mgr-mcp:8080",
-      "capabilities": ["secrets_management"],
-      "access_control": {
-        "level": "restricted"
-      }
-    },
-    {
-      "id": "browser-console-mcp",
-      "name": "Browser Console MCP",
-      "description": "Headless browser automation with console access",
-      "category": "testing",
-      "endpoint": "http://browser-console-mcp:8080",
-      "capabilities": ["browser_automation", "screenshots"]
-    },
-    {
-      "id": "playwright-mcp",
-      "name": "Playwright MCP",
-      "description": "Run browser tests and capture traces",
-      "category": "testing",
-      "endpoint": "http://playwright-mcp:8080",
-      "capabilities": ["browser_testing", "tracing"]
-    },
-    {
-      "id": "code-search-mcp",
-      "name": "Code Search MCP",
-      "description": "Semantic search across codebase",
-      "category": "knowledge",
-      "endpoint": "http://code-search-mcp:8080",
-      "capabilities": ["semantic_search", "code_navigation"]
-    },
-    {
-      "id": "figma-mcp",
-      "name": "Figma MCP",
-      "description": "Access Figma designs and assets",
-      "category": "design",
-      "endpoint": "http://figma-mcp:8080",
-      "capabilities": ["design_access", "asset_export"]
-    },
-    {
-      "id": "slack-mcp",
-      "name": "Slack MCP",
-      "description": "Post messages and manage threads",
-      "category": "communication",
-      "endpoint": "http://slack-mcp:8080",
-      "capabilities": ["messaging", "notifications"]
-    }
-  ]
+    "version": "1.0.0",
+    "services": [
+        {
+            "id": "local",
+            "name": "Local Test Server",
+            "endpoint": "http:\/\/localhost:8080",
+            "description": "Local test server",
+            "capabilities": [
+                "completion"
+            ],
+            "models": {
+                "model-1": {
+                    "name": "Test Model",
+                    "description": "A test model",
+                    "capabilities": [
+                        "completion"
+                    ]
+                }
+            }
+        }
+    ]
 }
