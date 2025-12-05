@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = removeTypeDuplicates;
 var _index = require("../../validators/generated/index.js");
 function getQualifiedName(node) {
-  return (0, _index.isIdentifier)(node) ? node.name : `${node.id.name}.${getQualifiedName(node.qualification)}`;
+  return (0, _index.isIdentifier)(node) ? node.name : (0, _index.isThisExpression)(node) ? "this" : `${node.right.name}.${getQualifiedName(node.left)}`;
 }
 function removeTypeDuplicates(nodesIn) {
   const nodes = Array.from(nodesIn);
@@ -20,31 +20,32 @@ function removeTypeDuplicates(nodesIn) {
     if (types.includes(node)) {
       continue;
     }
-    if ((0, _index.isAnyTypeAnnotation)(node)) {
+    if ((0, _index.isTSAnyKeyword)(node)) {
       return [node];
     }
-    if ((0, _index.isFlowBaseAnnotation)(node)) {
+    if ((0, _index.isTSBaseType)(node)) {
       bases.set(node.type, node);
       continue;
     }
-    if ((0, _index.isUnionTypeAnnotation)(node)) {
+    if ((0, _index.isTSUnionType)(node)) {
       if (!typeGroups.has(node.types)) {
         nodes.push(...node.types);
         typeGroups.add(node.types);
       }
       continue;
     }
-    if ((0, _index.isGenericTypeAnnotation)(node)) {
-      const name = getQualifiedName(node.id);
+    const typeArgumentsKey = "typeParameters";
+    if ((0, _index.isTSTypeReference)(node) && node[typeArgumentsKey]) {
+      const typeArguments = node[typeArgumentsKey];
+      const name = getQualifiedName(node.typeName);
       if (generics.has(name)) {
         let existing = generics.get(name);
-        if (existing.typeParameters) {
-          if (node.typeParameters) {
-            existing.typeParameters.params.push(...node.typeParameters.params);
-            existing.typeParameters.params = removeTypeDuplicates(existing.typeParameters.params);
-          }
+        const existingTypeArguments = existing[typeArgumentsKey];
+        if (existingTypeArguments) {
+          existingTypeArguments.params.push(...typeArguments.params);
+          existingTypeArguments.params = removeTypeDuplicates(existingTypeArguments.params);
         } else {
-          existing = node.typeParameters;
+          existing = typeArguments;
         }
       } else {
         generics.set(name, node);
