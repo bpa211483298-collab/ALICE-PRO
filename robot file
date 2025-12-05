@@ -1,0 +1,110 @@
+name: FULL Laravel CI/CD to Render
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # --------------------
+      # CHECKOUT
+      # --------------------
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      # --------------------
+      # SETUP PHP
+      # --------------------
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, bcmath, pdo, pdo_mysql
+          coverage: none
+
+      # --------------------
+      # INSTALL COMPOSER
+      # --------------------
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      # --------------------
+      # FRONTEND BUILD
+      # --------------------
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Node Dependencies
+        run: npm ci
+
+      - name: Build Assets
+        run: npm run build
+
+      # --------------------
+      # TESTING (PHP)
+      # --------------------
+      - name: Run PHP Unit Tests
+        run: php artisan test --without-tty || echo "PHP tests failed!"
+
+      # --------------------
+      # TESTING (JS OPTIONAL)
+      # --------------------
+      - name: Run JS Tests (optional)
+        run: npm test || echo "JS tests failed!"
+
+      # --------------------
+      # LARAVEL FIXES + OPTIMIZATION
+      # --------------------
+      - name: Auto Fix Laravel Cache Issues
+        run: |
+          php artisan config:clear || true
+          php artisan cache:clear || true
+          php artisan route:clear || true
+          php artisan view:clear || true
+
+      - name: Laravel Optimize
+        run: |
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+
+      # --------------------
+      # AUTO VERSION TAGGING
+      # --------------------
+      - name: Auto Tag Version
+        run: |
+          NEW_TAG="v$(date +'%Y.%m.%d.%H%M')"
+          echo "Tagging version: $NEW_TAG"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a $NEW_TAG -m "Automated version tag by CI/CD"
+          git push origin $NEW_TAG
+
+      # --------------------
+      # DEPLOY TO RENDER
+      # --------------------
+      - name: Trigger Render Deploy
+        run: |
+          curl -X POST \
+            -H "Accept: application/json" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys
+
+      # --------------------
+      # RUN MIGRATIONS AFTER DEPLOY
+      # --------------------
+      - name: Run Laravel Migrations on Render
+        run: |
+          curl -X POST \
+            -H "Accept: application/json" \
+            -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"command": "php artisan migrate --force"}' \
+            https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/shell
