@@ -1,496 +1,1073 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+> **Tags:**
+> - :boom:       [Breaking Change]
+> - :eyeglasses: [Spec Compliance]
+> - :rocket:     [New Feature]
+> - :bug:        [Bug Fix]
+> - :memo:       [Documentation]
+> - :house:      [Internal]
+> - :nail_care:  [Polish]
 
-## [0.13.1](https://github.com/brick/math/releases/tag/0.13.1) - 2025-03-29
+> Semver Policy: https://github.com/babel/babel/tree/main/packages/babel-parser#semver
 
-✨ **Improvements**
+_Note: Gaps between patch versions are faulty, broken or test releases._
 
-- `__toString()` methods of `BigInteger` and `BigDecimal` are now type-hinted as returning `numeric-string` instead of `string` (#90 by @vudaltsov)
+See the [Babel Changelog](https://github.com/babel/babel/blob/main/CHANGELOG.md) for the pre-6.8.0 version Changelog.
 
-## [0.13.0](https://github.com/brick/math/releases/tag/0.13.0) - 2025-03-03
+## 6.17.1 (2017-05-10)
 
-💥 **Breaking changes**
+### :bug: Bug Fix
+ * Fix typo in flow spread operator error (Brian Ng)
+ * Fixed invalid number literal parsing ([#473](https://github.com/babel/babylon/pull/473)) (Alex Kuzmenko)
+ * Fix number parser ([#433](https://github.com/babel/babylon/pull/433)) (Alex Kuzmenko)
+ * Ensure non pattern shorthand props are checked for reserved words ([#479](https://github.com/babel/babylon/pull/479)) (Brian Ng)
+ * Remove jsx context when parsing arrow functions ([#475](https://github.com/babel/babylon/pull/475)) (Brian Ng)
+ * Allow super in class properties ([#499](https://github.com/babel/babylon/pull/499)) (Brian Ng)
+ * Allow flow class field to be named constructor ([#510](https://github.com/babel/babylon/pull/510)) (Brian Ng)
 
-- `BigDecimal::ofUnscaledValue()` no longer throws an exception if the scale is negative
-- `MathException` now extends `RuntimeException` instead of `Exception`; this reverts the change introduced in version `0.11.0` (#82)
+## 6.17.0 (2017-04-20)
 
-✨ **New features**
+### :bug: Bug Fix
+ * Cherry-pick #418 to 6.x ([#476](https://github.com/babel/babylon/pull/476)) (Sebastian McKenzie)
+ * Add support for invalid escapes in tagged templates ([#274](https://github.com/babel/babylon/pull/274)) (Kevin Gibbons)
+ * Throw error if new.target is used outside of a function ([#402](https://github.com/babel/babylon/pull/402)) (Brian Ng)
+ * Fix parsing of class properties ([#351](https://github.com/babel/babylon/pull/351)) (Kevin Gibbons)
+ * Fix parsing yield with dynamicImport ([#383](https://github.com/babel/babylon/pull/383)) (Brian Ng)
+ * Ensure consistent start args for parseParenItem ([#386](https://github.com/babel/babylon/pull/386)) (Brian Ng)
 
-- `BigDecimal::ofUnscaledValue()` allows a negative scale (and converts the values to create a zero scale number)
+## 7.0.0-beta.8 (2017-04-04)
 
-## [0.12.3](https://github.com/brick/math/releases/tag/0.12.3) - 2025-02-28
+### New Feature
+* Add support for flow type spread (#418) (Conrad Buck)
+* Allow statics in flow interfaces (#427) (Brian Ng)
 
-✨ **New features**
+### Bug Fix
+* Fix predicate attachment to match flow parser (#428) (Brian Ng)
+* Add extra.raw back to JSXText and JSXAttribute (#344) (Alex Rattray)
+* Fix rest parameters with array and objects (#424) (Brian Ng)
+* Fix number parser (#433) (Alex Kuzmenko)
 
-- `BigDecimal::getPrecision()` Returns the number of significant digits in a decimal number
+### Docs
+* Fix CONTRIBUTING.md [skip ci] (#432) (Alex Kuzmenko)
 
-## [0.12.2](https://github.com/brick/math/releases/tag/0.12.2) - 2025-02-26
+### Internal
+* Use babel-register script when running babel smoke tests (#442) (Brian Ng)
 
-⚡️ **Performance improvements**
+## 7.0.0-beta.7 (2017-03-22)
 
-- Division in `NativeCalculator` is now faster for small divisors, thanks to [@Izumi-kun](https://github.com/Izumi-kun) in [#87](https://github.com/brick/math/pull/87).
+### Spec Compliance
+* Remove babylon plugin for template revision since it's stage-4 (#426) (Henry Zhu)
 
-👌 **Improvements**
+### Bug Fix
 
-- Add missing `RoundingNecessaryException` to the `@throws` annotation of `BigNumber::of()`
+* Fix push-pop logic in flow (#405) (Daniel Tschinder)
 
-## [0.12.1](https://github.com/brick/math/releases/tag/0.12.1) - 2023-11-29
+## 7.0.0-beta.6 (2017-03-21)
 
-⚡️ **Performance improvements**
+### New Feature
+* Add support for invalid escapes in tagged templates (#274) (Kevin Gibbons)
 
-- `BigNumber::of()` is now faster, thanks to [@SebastienDug](https://github.com/SebastienDug) in [#77](https://github.com/brick/math/pull/77).
+### Polish
+* Improves error message when super is called outside of constructor (#408) (Arshabh Kumar Agarwal)
 
-## [0.12.0](https://github.com/brick/math/releases/tag/0.12.0) - 2023-11-26
+### Docs
 
-💥 **Breaking changes**
+* [7.0] Moved value field in spec from ObjectMember to ObjectProperty as ObjectMethod's don't have it (#415) [skip ci] (James Browning)
 
-- Minimum PHP version is now 8.1
-- `RoundingMode` is now an `enum`; if you're type-hinting rounding modes, you need to type-hint against `RoundingMode` instead of `int` now
-- `BigNumber` classes do not implement the `Serializable` interface anymore (they use the [new custom object serialization mechanism](https://wiki.php.net/rfc/custom_object_serialization))
-- The following breaking changes only affect you if you're creating your own `BigNumber` subclasses:
-  - the return type of `BigNumber::of()` is now `static`
-  - `BigNumber` has a new abstract method `from()`
-  - all `public` and `protected` functions of `BigNumber` are now `final`
+## 7.0.0-beta.5 (2017-03-21)
 
-## [0.11.0](https://github.com/brick/math/releases/tag/0.11.0) - 2023-01-16
+### Bug Fix
+* Throw error if new.target is used outside of a function (#402) (Brian Ng)
+* Fix parsing of class properties (#351) (Kevin Gibbons)
 
-💥 **Breaking changes**
+### Other
+ * Test runner: Detect extra property in 'actual' but not in 'expected'. (#407) (Andy)
+ * Optimize travis builds (#419) (Daniel Tschinder)
+ * Update codecov to 2.0 (#412) (Daniel Tschinder)
+ * Fix spec for ClassMethod: It doesn't have a function, it *is* a function. (#406) [skip ci] (Andy)
+ * Changed Non-existent RestPattern to RestElement which is what is actually parsed (#409) [skip ci] (James Browning)
+ * Upgrade flow to 0.41 (Daniel Tschinder)
+ * Fix watch command (#403) (Brian Ng)
+ * Update yarn lock (Daniel Tschinder)
+ * Fix watch command (#403) (Brian Ng)
+ * chore(package): update flow-bin to version 0.41.0 (#395) (greenkeeper[bot])
+ * Add estree test for correct order of directives (Daniel Tschinder)
+ * Add DoExpression to spec (#364) (Alex Kuzmenko)
+ * Mention cloning of repository in CONTRIBUTING.md (#391) [skip ci] (Sumedh Nimkarde)
+ * Explain how to run only one test (#389) [skip ci] (Aaron Ang)
 
-- Minimum PHP version is now 8.0
-- Methods accepting a union of types are now strongly typed<sup>*</sup>
-- `MathException` now extends `Exception` instead of `RuntimeException`
+ ## 7.0.0-beta.4 (2017-03-01)
 
-<sup>* You may now run into type errors if you were passing `Stringable` objects to `of()` or any of the methods
-internally calling `of()`, with `strict_types` enabled. You can fix this by casting `Stringable` objects to `string`
-first.</sup>
+* Don't consume async when checking for async func decl (#377) (Brian Ng)
+* add `ranges` option [skip ci] (Henry Zhu)
+* Don't parse class properties without initializers when classProperties is disabled and Flow is enabled (#300) (Andrew Levine)
 
-## [0.10.2](https://github.com/brick/math/releases/tag/0.10.2) - 2022-08-11
+## 7.0.0-beta.3 (2017-02-28)
 
-👌 **Improvements**
+- [7.0] Change RestProperty/SpreadProperty to RestElement/SpreadElement (#384)
+- Merge changes from 6.x
 
-- `BigRational::toFloat()` now simplifies the fraction before performing division (#73) thanks to @olsavmic
+## 7.0.0-beta.2 (2017-02-20)
 
-## [0.10.1](https://github.com/brick/math/releases/tag/0.10.1) - 2022-08-02
+- estree: correctly change literals in all cases (#368) (Daniel Tschinder)
 
-✨ **New features**
+## 7.0.0-beta.1 (2017-02-20)
 
-- `BigInteger::gcdMultiple()` returns the GCD of multiple `BigInteger` numbers
+- Fix negative number literal typeannotations (#366) (Daniel Tschinder)
+- Update contributing with more test info [skip ci] (#355) (Brian Ng)
 
-## [0.10.0](https://github.com/brick/math/releases/tag/0.10.0) - 2022-06-18
+## 7.0.0-beta.0 (2017-02-15)
 
-💥 **Breaking changes**
+- Reintroduce Variance node (#333) (Daniel Tschinder)
+- Rename NumericLiteralTypeAnnotation to NumberLiteralTypeAnnotation (#332) (Charles Pick)
+- [7.0] Remove ForAwaitStatement, add await flag to ForOfStatement (#349) (Brandon Dail)
+- chore(package): update ava to version 0.18.0 (#345) (greenkeeper[bot])
+- chore(package): update babel-plugin-istanbul to version 4.0.0 (#350) (greenkeeper[bot])
+- Change location of ObjectTypeIndexer to match flow (#228) (Daniel Tschinder)
+- Rename flow AST Type ExistentialTypeParam to ExistsTypeAnnotation (#322) (Toru Kobayashi)
+- Revert "Temporary rollback for erroring on trailing comma with spread (#154)" (#290) (Daniel Tschinder)
+- Remove classConstructorCall plugin (#291) (Brian Ng)
+- Update yarn.lock (Daniel Tschinder)
+- Update cross-env to 3.x (Daniel Tschinder)
+- [7.0] Remove node 0.10, 0.12 and 5 from Travis (#284) (Sergey Rubanov)
+- Remove `String.fromCodePoint` shim (#279) (Mathias Bynens)
 
-- Minimum PHP version is now 7.4
+## 6.16.1 (2017-02-23)
 
-## [0.9.3](https://github.com/brick/math/releases/tag/0.9.3) - 2021-08-15
+### :bug: Regression
 
-🚀 **Compatibility with PHP 8.1**
+- Revert "Fix export default async function to be FunctionDeclaration" ([#375](https://github.com/babel/babylon/pull/375))
 
-- Support for custom object serialization; this removes a warning on PHP 8.1 due to the `Serializable` interface being deprecated (#60) thanks @TRowbotham
+Need to modify Babel for this AST node change, so moving to 7.0.
 
-## [0.9.2](https://github.com/brick/math/releases/tag/0.9.2) - 2021-01-20
+- Revert "Don't parse class properties without initializers when classProperties plugin is disabled, and Flow is enabled" ([#376](https://github.com/babel/babylon/pull/376))
 
-🐛 **Bug fix**
+[react-native](https://github.com/facebook/react-native/issues/12542) broke with this so we reverted.
 
-- Incorrect results could be returned when using the BCMath calculator, with a default scale set with `bcscale()`, on PHP >= 7.2 (#55).
+## 6.16.0 (2017-02-23)
 
-## [0.9.1](https://github.com/brick/math/releases/tag/0.9.1) - 2020-08-19
+### :rocket: New Feature
 
-✨ **New features**
+***ESTree*** compatibility as plugin ([#277](https://github.com/babel/babylon/pull/277)) (Daniel Tschinder)
 
-- `BigInteger::not()` returns the bitwise `NOT` value
+We finally introduce a new compatibility layer for ESTree. To put babylon into ESTree-compatible mode the new plugin `estree` can be enabled. In this mode the parser will output an AST that is compliant to the specs of [ESTree](https://github.com/estree/estree/)
 
-🐛 **Bug fixes**
+We highly recommend everyone who uses babylon outside of babel to use this plugin. This will make it much easier for users to switch between different ESTree-compatible parsers. We so far tested several projects with different parsers and exchanged their parser to babylon and in nearly all cases it worked out of the box. Some other estree-compatible parsers include `acorn`, `esprima`, `espree`, `flow-parser`, etc.
 
-- `BigInteger::toBytes()` could return an incorrect binary representation for some numbers
-- The bitwise operations `and()`, `or()`, `xor()` on `BigInteger` could return an incorrect result when the GMP extension is not available
+To enable `estree` mode simply add the plugin in the config:
+```json
+{
+  "plugins": [ "estree" ]
+}
+```
 
-## [0.9.0](https://github.com/brick/math/releases/tag/0.9.0) - 2020-08-18
+If you want to migrate your project from non-ESTree mode to ESTree, have a look at our [Readme](https://github.com/babel/babylon/#output), where all deviations are mentioned.
 
-👌 **Improvements**
+Add a parseExpression public method ([#213](https://github.com/babel/babylon/pull/213)) (jeromew)
 
-- `BigNumber::of()` now accepts `.123` and `123.` formats, both of which return a `BigDecimal`
+Babylon exports a new function to parse a single expression
 
-💥 **Breaking changes**
+```js
+import { parseExpression } from 'babylon';
 
-- Deprecated method `BigInteger::powerMod()` has been removed - use `modPow()` instead
-- Deprecated method `BigInteger::parse()` has been removed - use `fromBase()` instead
+const ast = parseExpression('x || y && z', options);
+```
 
-## [0.8.17](https://github.com/brick/math/releases/tag/0.8.17) - 2020-08-19
+The returned AST will only consist of the expression. The options are the same as for `parse()`
 
-🐛 **Bug fix**
+Add startLine option ([#346](https://github.com/babel/babylon/pull/346)) (Raphael Mu)
 
-- `BigInteger::toBytes()` could return an incorrect binary representation for some numbers
-- The bitwise operations `and()`, `or()`, `xor()` on `BigInteger` could return an incorrect result when the GMP extension is not available
+A new option was added to babylon allowing to change the initial linenumber for the first line which is usually `1`.
+Changing this for example to `100` will make line `1` of the input source to be marked as line `100`, line `2` as `101`, line `3` as `102`, ...
 
-## [0.8.16](https://github.com/brick/math/releases/tag/0.8.16) - 2020-08-18
+Function predicate declaration ([#103](https://github.com/babel/babylon/pull/103)) (Panagiotis Vekris)
 
-🚑 **Critical fix**
+Added support for function predicates which flow introduced in version 0.33.0
 
-- This version reintroduces the deprecated `BigInteger::parse()` method, that has been removed by mistake in version `0.8.9` and should have lasted for the whole `0.8` release cycle.
+```js
+declare function is_number(x: mixed): boolean %checks(typeof x === "number");
+```
 
-✨ **New features**
+Allow imports in declare module ([#315](https://github.com/babel/babylon/pull/315)) (Daniel Tschinder)
 
-- `BigInteger::modInverse()` calculates a modular multiplicative inverse
-- `BigInteger::fromBytes()` creates a `BigInteger` from a byte string
-- `BigInteger::toBytes()` converts a `BigInteger` to a byte string
-- `BigInteger::randomBits()` creates a pseudo-random `BigInteger` of a given bit length
-- `BigInteger::randomRange()` creates a pseudo-random `BigInteger` between two bounds
+Added support for imports within module declarations which flow introduced in version 0.37.0
 
-💩 **Deprecations**
+```js
+declare module "C" {
+  import type { DT } from "D";
+  declare export type CT = { D: DT };
+}
+```
 
-- `BigInteger::powerMod()` is now deprecated in favour of `modPow()`
+### :eyeglasses: Spec Compliance
 
-## [0.8.15](https://github.com/brick/math/releases/tag/0.8.15) - 2020-04-15
+Forbid semicolons after decorators in classes ([#352](https://github.com/babel/babylon/pull/352)) (Kevin Gibbons)
 
-🐛 **Fixes**
+This example now correctly throws an error when there is a semicolon after the decorator:
 
-- added missing `ext-json` requirement, due to `BigNumber` implementing `JsonSerializable`
+```js
+class A {
+@a;
+foo(){}
+}
+```
 
-⚡️ **Optimizations**
+Keywords are not allowed as local specifier ([#307](https://github.com/babel/babylon/pull/307)) (Daniel Tschinder)
 
-- additional optimization in `BigInteger::remainder()`
+Using keywords in imports is not allowed anymore:
 
-## [0.8.14](https://github.com/brick/math/releases/tag/0.8.14) - 2020-02-18
+```js
+import { default } from "foo";
+import { a as debugger } from "foo";
+```
 
-✨ **New features**
+Do not allow overwritting of primitive types ([#314](https://github.com/babel/babylon/pull/314)) (Daniel Tschinder)
 
-- `BigInteger::getLowestSetBit()` returns the index of the rightmost one bit
+In flow it is now forbidden to overwrite the primitive types `"any"`, `"mixed"`, `"empty"`, `"bool"`, `"boolean"`, `"number"`, `"string"`, `"void"` and `"null"` with your own type declaration.
 
-## [0.8.13](https://github.com/brick/math/releases/tag/0.8.13) - 2020-02-16
+Disallow import type { type a } from … ([#305](https://github.com/babel/babylon/pull/305)) (Daniel Tschinder)
 
-✨ **New features**
+The following code now correctly throws an error
 
-- `BigInteger::isEven()` tests whether the number is even
-- `BigInteger::isOdd()` tests whether the number is odd
-- `BigInteger::testBit()` tests if a bit is set
-- `BigInteger::getBitLength()` returns the number of bits in the minimal representation of the number
+```js
+import type { type a } from "foo";
+```
 
-## [0.8.12](https://github.com/brick/math/releases/tag/0.8.12) - 2020-02-03
+Don't parse class properties without initializers when classProperties is disabled and Flow is enabled ([#300](https://github.com/babel/babylon/pull/300)) (Andrew Levine)
 
-🛠️ **Maintenance release**
+Ensure that you enable the `classProperties` plugin in order to enable correct parsing of class properties. Prior to this version it was possible to parse them by enabling the `flow` plugin but this was not intended the behaviour.
 
-Classes are now annotated for better static analysis with [psalm](https://psalm.dev/).
+If you enable the flow plugin you can only define the type of the class properties, but not initialize them.
 
-This is a maintenance release: no bug fixes, no new features, no breaking changes.
+Fix export default async function to be FunctionDeclaration ([#324](https://github.com/babel/babylon/pull/324)) (Daniel Tschinder)
 
-## [0.8.11](https://github.com/brick/math/releases/tag/0.8.11) - 2020-01-23
+Parsing the following code now returns a `FunctionDeclaration` AST node instead of `FunctionExpression`.
 
-✨ **New feature**
+```js
+export default async function bar() {};
+```
 
-`BigInteger::powerMod()` performs a power-with-modulo operation. Useful for crypto.
+### :nail_care: Polish
 
-## [0.8.10](https://github.com/brick/math/releases/tag/0.8.10) - 2020-01-21
+Improve error message on attempt to destructure named import ([#288](https://github.com/babel/babylon/pull/288)) (Brian Ng)
 
-✨ **New feature**
+### :bug: Bug Fix
 
-`BigInteger::mod()` returns the **modulo** of two numbers. The *modulo* differs from the *remainder* when the signs of the operands are different.
+Fix negative number literal typeannotations ([#366](https://github.com/babel/babylon/pull/366)) (Daniel Tschinder)
 
-## [0.8.9](https://github.com/brick/math/releases/tag/0.8.9) - 2020-01-08
+Ensure takeDecorators is called on exported class ([#358](https://github.com/babel/babylon/pull/358)) (Brian Ng)
 
-⚡️ **Performance improvements**
+ESTree: correctly change literals in all cases ([#368](https://github.com/babel/babylon/pull/368)) (Daniel Tschinder)
 
-A few additional optimizations in `BigInteger` and `BigDecimal` when one of the operands can be returned as is. Thanks to @tomtomsen in #24.
+Correctly convert RestProperty to Assignable ([#339](https://github.com/babel/babylon/pull/339)) (Daniel Tschinder)
 
-## [0.8.8](https://github.com/brick/math/releases/tag/0.8.8) - 2019-04-25
+Fix #321 by allowing question marks in type params ([#338](https://github.com/babel/babylon/pull/338)) (Daniel Tschinder)
 
-🐛 **Bug fixes**
+Fix #336 by correctly setting arrow-param ([#337](https://github.com/babel/babylon/pull/337)) (Daniel Tschinder)
 
-- `BigInteger::toBase()` could return an empty string for zero values (BCMath & Native calculators only, GMP calculator unaffected)
+Fix parse error when destructuring `set` with default value ([#317](https://github.com/babel/babylon/pull/317)) (Brian Ng)
 
-✨ **New features**
+Fix ObjectTypeCallProperty static ([#298](https://github.com/babel/babylon/pull/298)) (Dan Harper)
 
-- `BigInteger::toArbitraryBase()` converts a number to an arbitrary base, using a custom alphabet
-- `BigInteger::fromArbitraryBase()` converts a string in an arbitrary base, using a custom alphabet, back to a number
 
-These methods can be used as the foundation to convert strings between different bases/alphabets, using BigInteger as an intermediate representation.
+### :house: Internal
 
-💩 **Deprecations**
+Fix generator-method-with-computed-name spec ([#360](https://github.com/babel/babylon/pull/360)) (Alex Rattray)
 
-- `BigInteger::parse()` is now deprecated in favour of `fromBase()`
+Fix flow type-parameter-declaration test with unintended semantic ([#361](https://github.com/babel/babylon/pull/361)) (Alex Rattray)
 
-`BigInteger::fromBase()` works the same way as `parse()`, with 2 minor differences:
+Cleanup and splitup parser functions ([#295](https://github.com/babel/babylon/pull/295)) (Daniel Tschinder)
 
-- the `$base` parameter is required, it does not default to `10`
-- it throws a `NumberFormatException` instead of an `InvalidArgumentException` when the number is malformed
+chore(package): update flow-bin to version 0.38.0 ([#313](https://github.com/babel/babylon/pull/313)) (greenkeeper[bot])
 
-## [0.8.7](https://github.com/brick/math/releases/tag/0.8.7) - 2019-04-20
+Call inner function instead of 1:1 copy to plugin ([#294](https://github.com/babel/babylon/pull/294)) (Daniel Tschinder)
 
-**Improvements**
+Update eslint-config-babel to the latest version 🚀 ([#299](https://github.com/babel/babylon/pull/299)) (greenkeeper[bot])
 
-- Safer conversion from `float` when using custom locales
-- **Much faster** `NativeCalculator` implementation 🚀
+Update eslint-config-babel to the latest version 🚀 ([#293](https://github.com/babel/babylon/pull/293)) (greenkeeper[bot])
 
-You can expect **at least a 3x performance improvement** for common arithmetic operations when using the library on systems without GMP or BCMath; it gets exponentially faster on multiplications with a high number of digits. This is due to calculations now being performed on whole blocks of digits (the block size depending on the platform, 32-bit or 64-bit) instead of digit-by-digit as before.
+devDeps: remove eslint-plugin-babel ([#292](https://github.com/babel/babylon/pull/292)) (Kai Cataldo)
 
-## [0.8.6](https://github.com/brick/math/releases/tag/0.8.6) - 2019-04-11
+Correct indent eslint rule config ([#276](https://github.com/babel/babylon/pull/276)) (Daniel Tschinder)
 
-**New method**
+Fail tests that have expected.json and throws-option ([#285](https://github.com/babel/babylon/pull/285)) (Daniel Tschinder)
 
-`BigNumber::sum()` returns the sum of one or more numbers.
+### :memo: Documentation
 
-## [0.8.5](https://github.com/brick/math/releases/tag/0.8.5) - 2019-02-12
+Update contributing with more test info [skip ci] ([#355](https://github.com/babel/babylon/pull/355)) (Brian Ng)
 
-**Bug fix**: `of()` factory methods could fail when passing a `float` in environments using a `LC_NUMERIC` locale with a decimal separator other than `'.'` (#20).
+Update API documentation ([#330](https://github.com/babel/babylon/pull/330)) (Timothy Gu)
 
-Thanks @manowark 👍
+Added keywords to package.json ([#323](https://github.com/babel/babylon/pull/323)) (Dmytro)
 
-## [0.8.4](https://github.com/brick/math/releases/tag/0.8.4) - 2018-12-07
+AST spec: fix casing of `RegExpLiteral` ([#318](https://github.com/babel/babylon/pull/318)) (Mathias Bynens)
 
-**New method**
+## 6.15.0 (2017-01-10)
 
-`BigDecimal::sqrt()` calculates the square root of a decimal number, to a given scale.
+### :eyeglasses: Spec Compliance
 
-## [0.8.3](https://github.com/brick/math/releases/tag/0.8.3) - 2018-12-06
+Add support for Flow shorthand import type ([#267](https://github.com/babel/babylon/pull/267)) (Jeff Morrison)
 
-**New method**
+This change implements flows new shorthand import syntax
+and where previously you had to write this code:
 
-`BigInteger::sqrt()` calculates the square root of a number (thanks @peter279k).
+```js
+import {someValue} from "blah";
+import type {someType} from "blah";
+import typeof {someOtherValue} from "blah";
+```
 
-**New exception**
+you can now write it like this:
 
-`NegativeNumberException` is thrown when calling `sqrt()` on a negative number.
+```js
+import {
+  someValue,
+  type someType,
+  typeof someOtherValue,
+} from "blah";
+```
 
-## [0.8.2](https://github.com/brick/math/releases/tag/0.8.2) - 2018-11-08
+For more information look at [this](https://github.com/facebook/flow/pull/2890) pull request.
 
-**Performance update**
+flow: allow leading pipes in all positions ([#256](https://github.com/babel/babylon/pull/256)) (Vladimir Kurchatkin)
 
-- Further improvement of `toInt()` performance
-- `NativeCalculator` can now perform some multiplications more efficiently
+This change now allows a leading pipe everywhere types can be used:
+```js
+var f = (x): | 1 | 2 => 1;
+```
 
-## [0.8.1](https://github.com/brick/math/releases/tag/0.8.1) - 2018-11-07
+Throw error when exporting non-declaration ([#241](https://github.com/babel/babylon/pull/241)) (Kai Cataldo)
 
-Performance optimization of `toInt()` methods.
+Previously babylon parsed the following exports, although they are not valid:
+```js
+export typeof foo;
+export new Foo();
+export function() {};
+export for (;;);
+export while(foo);
+```
 
-## [0.8.0](https://github.com/brick/math/releases/tag/0.8.0) - 2018-10-13
+### :bug: Bug Fix
 
-**Breaking changes**
+Don't set inType flag when parsing property names ([#266](https://github.com/babel/babylon/pull/266)) (Vladimir Kurchatkin)
 
-The following deprecated methods have been removed. Use the new method name instead:
+This fixes parsing of this case:
 
-| Method removed | Replacement method |
-| --- | --- |
-| `BigDecimal::getIntegral()` | `BigDecimal::getIntegralPart()` |
-| `BigDecimal::getFraction()` | `BigDecimal::getFractionalPart()` |
+```js
+const map = {
+  [age <= 17] : 'Too young'
+};
+```
+
+Fix source location for JSXEmptyExpression nodes (fixes #248) ([#249](https://github.com/babel/babylon/pull/249)) (James Long)
+
+The following case produced an invalid AST
+```js
+<div>{/* foo */}</div>
+```
+
+Use fromCodePoint to convert high value unicode entities ([#243](https://github.com/babel/babylon/pull/243)) (Ryan Duffy)
+
+When high value unicode entities (e.g. 💩) were used in the input source code they are now correctly encoded in the resulting AST.
+
+Rename folder to avoid Windows-illegal characters ([#281](https://github.com/babel/babylon/pull/281)) (Ryan Plant)
+
+Allow this.state.clone() when parsing decorators ([#262](https://github.com/babel/babylon/pull/262)) (Alex Rattray)
+
+### :house: Internal
+
+User external-helpers ([#254](https://github.com/babel/babylon/pull/254)) (Daniel Tschinder)
+
+Add watch script for dev ([#234](https://github.com/babel/babylon/pull/234)) (Kai Cataldo)
+
+Freeze current plugins list for "*" option, and remove from README.md ([#245](https://github.com/babel/babylon/pull/245)) (Andrew Levine)
+
+Prepare tests for multiple fixture runners. ([#240](https://github.com/babel/babylon/pull/240)) (Daniel Tschinder)
+
+Add some test coverage for decorators stage-0 plugin ([#250](https://github.com/babel/babylon/pull/250)) (Andrew Levine)
+
+Refactor tokenizer types file ([#263](https://github.com/babel/babylon/pull/263)) (Sven SAULEAU)
+
+Update eslint-config-babel to the latest version 🚀 ([#273](https://github.com/babel/babylon/pull/273)) (greenkeeper[bot])
+
+chore(package): update rollup to version 0.41.0 ([#272](https://github.com/babel/babylon/pull/272)) (greenkeeper[bot])
+
+chore(package): update flow-bin to version 0.37.0 ([#255](https://github.com/babel/babylon/pull/255)) (greenkeeper[bot])
+
+## 6.14.1 (2016-11-17)
+
+### :bug: Bug Fix
+
+Allow `"plugins": ["*"]` ([#229](https://github.com/babel/babylon/pull/229)) (Daniel Tschinder)
+
+```js
+{
+  "plugins": ["*"]
+}
+```
+
+Will include all parser plugins instead of specifying each one individually. Useful for tools like babel-eslint, jscodeshift, and ast-explorer.
+
+## 6.14.0 (2016-11-16)
+
+### :eyeglasses: Spec Compliance
+
+Throw error for reserved words `enum` and `await` ([#195](https://github.com/babel/babylon/pull/195)) (Kai Cataldo)
+
+[11.6.2.2 Future Reserved Words](http://www.ecma-international.org/ecma-262/6.0/#sec-future-reserved-words)
+
+Babylon will throw for more reserved words such as `enum` or `await` (in strict mode).
+
+```
+class enum {} // throws
+class await {} // throws in strict mode (module)
+```
+
+Optional names for function types and object type indexers ([#197](https://github.com/babel/babylon/pull/197)) (Gabe Levi)
+
+So where you used to have to write
+
+```js
+type A = (x: string, y: boolean) => number;
+type B = (z: string) => number;
+type C = { [key: string]: number };
+```
+
+you can now write (with flow 0.34.0)
+
+```js
+type A = (string, boolean) => number;
+type B = string => number;
+type C = { [string]: number };
+```
+
+Parse flow nested array type annotations like `number[][]` ([#219](https://github.com/babel/babylon/pull/219)) (Bernhard Häussner)
+
+Supports these form now of specifying array types:
+
+```js
+var a: number[][][][];
+var b: string[][];
+```
+
+### :bug: Bug Fix
+
+Correctly eat semicolon at the end of `DelcareModuleExports` ([#223](https://github.com/babel/babylon/pull/223))  (Daniel Tschinder)
+
+```
+declare module "foo" { declare module.exports: number }
+declare module "foo" { declare module.exports: number; }  // also allowed now
+```
+
+### :house: Internal
+
+ * Count Babel tests towards Babylon code coverage ([#182](https://github.com/babel/babylon/pull/182)) (Moti Zilberman)
+ * Fix strange line endings ([#214](https://github.com/babel/babylon/pull/214)) (Thomas Grainger)
+ * Add node 7 (Daniel Tschinder)
+ * chore(package): update flow-bin to version 0.34.0 ([#204](https://github.com/babel/babylon/pull/204)) (Greenkeeper)
+
+## v6.13.1 (2016-10-26)
+
+### :nail_care: Polish
+
+- Use rollup for bundling to speed up startup time ([#190](https://github.com/babel/babylon/pull/190)) ([@drewml](https://github.com/DrewML))
+
+```js
+const babylon = require('babylon');
+const ast = babylon.parse('var foo = "lol";');
+```
+
+With that test case, there was a ~95ms savings by removing the need for node to build/traverse the dependency graph.
+
+**Without bundling**
+![image](https://cloud.githubusercontent.com/assets/5233399/19420264/3133497e-93ad-11e6-9a6a-2da59c4f5c13.png)
+
+**With bundling**
+![image](https://cloud.githubusercontent.com/assets/5233399/19420267/388f556e-93ad-11e6-813e-7c5c396be322.png)
+
+- add clean command [skip ci] ([#201](https://github.com/babel/babylon/pull/201)) (Henry Zhu)
+- add ForAwaitStatement (async generator already added) [skip ci] ([#196](https://github.com/babel/babylon/pull/196)) (Henry Zhu)
+
+## v6.13.0 (2016-10-21)
+
+### :eyeglasses: Spec Compliance
+
+Property variance type annotations for Flow plugin ([#161](https://github.com/babel/babylon/pull/161)) (Sam Goldman)
+
+> See https://flowtype.org/docs/variance.html for more information
+
+```js
+type T = { +p: T };
+interface T { -p: T };
+declare class T { +[k:K]: V };
+class T { -[k:K]: V };
+class C2 { +p: T = e };
+```
+
+Raise error on duplicate definition of __proto__ ([#183](https://github.com/babel/babylon/pull/183)) (Moti Zilberman)
+
+```js
+({ __proto__: 1, __proto__: 2 }) // Throws an error now
+```
+
+### :bug: Bug Fix
+
+Flow: Allow class properties to be named `static` ([#184](https://github.com/babel/babylon/pull/184)) (Moti Zilberman)
+
+```js
+declare class A {
+  static: T;
+}
+```
+
+Allow "async" as identifier for object literal property shorthand ([#187](https://github.com/babel/babylon/pull/187)) (Andrew Levine)
+
+```js
+var foo = { async, bar };
+```
+
+### :nail_care: Polish
+
+Fix flowtype and add inType to state ([#189](https://github.com/babel/babylon/pull/189)) (Daniel Tschinder)
+
+> This improves the performance slightly (because of hidden classes)
+
+### :house: Internal
+
+Fix .gitattributes line ending setting ([#191](https://github.com/babel/babylon/pull/191)) (Moti Zilberman)
+
+Increase test coverage ([#175](https://github.com/babel/babylon/pull/175) (Moti Zilberman)
+
+Readd missin .eslinignore for IDEs (Daniel Tschinder)
+
+Error on missing expected.json fixture in CI ([#188](https://github.com/babel/babylon/pull/188)) (Moti Zilberman)
+
+Add .gitattributes and .editorconfig for LF line endings ([#179](https://github.com/babel/babylon/pull/179)) (Moti Zilberman)
+
+Fixes two tests that are failing after the merge of #172 ([#177](https://github.com/babel/babylon/pull/177)) (Moti Zilberman)
+
+## v6.12.0 (2016-10-14)
+
+### :eyeglasses: Spec Compliance
+
+Implement import() syntax ([#163](https://github.com/babel/babylon/pull/163)) (Jordan Gensler)
+
+#### Dynamic Import
+
+- Proposal Repo: https://github.com/domenic/proposal-dynamic-import
+- Championed by [@domenic](https://github.com/domenic)
+- stage-2
+- [sept-28 tc39 notes](https://github.com/rwaldron/tc39-notes/blob/master/es7/2016-09/sept-28.md#113a-import)
+
+> This repository contains a proposal for adding a "function-like" import() module loading syntactic form to JavaScript
+
+```js
+import(`./section-modules/${link.dataset.entryModule}.js`)
+.then(module => {
+  module.loadPageInto(main);
+})
+```
+
+Add EmptyTypeAnnotation ([#171](https://github.com/babel/babylon/pull/171)) (Sam Goldman)
+
+#### EmptyTypeAnnotation
+
+Just wasn't covered before.
+
+```js
+type T = empty;
+```
+
+### :bug: Bug Fix
+
+Fix crash when exporting with destructuring and sparse array ([#170](https://github.com/babel/babylon/pull/170)) (Jeroen Engels)
+
+```js
+// was failing due to sparse array
+export const { foo: [ ,, qux7 ] } = bar;
+```
+
+Allow keyword in Flow object declaration property names with type parameters ([#146](https://github.com/babel/babylon/pull/146)) (Dan Harper)
+
+```js
+declare class X {
+  foobar<T>(): void;
+  static foobar<T>(): void;
+}
+```
+
+Allow keyword in object/class property names with Flow type parameters ([#145](https://github.com/babel/babylon/pull/145)) (Dan Harper)
+
+```js
+class Foo {
+  delete<T>(item: T): T {
+    return item;
+  }
+}
+```
+
+Allow typeAnnotations for yield expressions ([#174](https://github.com/babel/babylon/pull/174))) (Daniel Tschinder)
+
+```js
+function *foo() {
+  const x = (yield 5: any);
+}
+```
+
+### :nail_care: Polish
+
+Annotate more errors with expected token ([#172](https://github.com/babel/babylon/pull/172))) (Moti Zilberman)
+
+```js
+// Unexpected token, expected ; (1:6)
+{ set 1 }
+```
+
+### :house: Internal
+
+Remove kcheck ([#173](https://github.com/babel/babylon/pull/173)))  (Daniel Tschinder)
+
+Also run flow, linting, babel tests on separate instances (add back node 0.10)
+
+## v6.11.6 (2016-10-12)
+
+### :bug: Bug Fix/Regression
+
+Fix crash when exporting with destructuring and sparse array ([#170](https://github.com/babel/babylon/pull/170)) (Jeroen Engels)
+
+```js
+// was failing with `Cannot read property 'type' of null` because of null identifiers
+export const { foo: [ ,, qux7 ] } = bar;
+```
+
+## v6.11.5 (2016-10-12)
+
+### :eyeglasses: Spec Compliance
+
+Fix: Check for duplicate named exports in exported destructuring assignments ([#144](https://github.com/babel/babylon/pull/144)) (Kai Cataldo)
+
+```js
+// `foo` has already been exported. Exported identifiers must be unique. (2:20)
+export function foo() {};
+export const { a: [{foo}] } = bar;
+```
+
+Fix: Check for duplicate named exports in exported rest elements/properties ([#164](https://github.com/babel/babylon/pull/164)) (Kai Cataldo)
+
+```js
+// `foo` has already been exported. Exported identifiers must be unique. (2:22)
+export const foo = 1;
+export const [bar, ...foo] = baz;
+```
+
+### :bug: Bug Fix
+
+Fix: Allow identifier `async` for default param in arrow expression ([#165](https://github.com/babel/babylon/pull/165)) (Kai Cataldo)
+
+```js
+// this is ok now
+const test = ({async = true}) => {};
+```
+
+### :nail_care: Polish
+
+Babylon will now print out the token it's expecting if there's a `SyntaxError` ([#150](https://github.com/babel/babylon/pull/150)) (Daniel Tschinder)
+
+```bash
+# So in the case of a missing ending curly (`}`)
+Module build failed: SyntaxError: Unexpected token, expected } (30:0)
+  28 |   }
+  29 |
+> 30 |
+     | ^
+```
+
+## v6.11.4 (2016-10-03)
+
+Temporary rollback for erroring on trailing comma with spread (#154) (Henry Zhu)
+
+## v6.11.3 (2016-10-01)
+
+### :eyeglasses: Spec Compliance
+
+Add static errors for object rest (#149) ([@danez](https://github.com/danez))
+
+> https://github.com/sebmarkbage/ecmascript-rest-spread
+
+Object rest copies the *rest* of properties from the right hand side `obj` starting from the left to right.
+
+```js
+let { x, y, ...z } =  { x: 1, y: 2, z: 3 };
+// x = 1
+// y = 2
+// z = { z: 3 }
+```
+
+#### New Syntax Errors:
+
+**SyntaxError**: The rest element has to be the last element when destructuring (1:10)
+```bash
+> 1 | let { ...x, y, z } = { x: 1, y: 2, z: 3};
+    |           ^
+# Previous behavior:
+# x = { x: 1, y: 2, z: 3 }
+# y = 2
+# z = 3
+```
+
+Before, this was just a more verbose way of shallow copying `obj` since it doesn't actually do what you think.
+
+**SyntaxError**: Cannot have multiple rest elements when destructuring (1:13)
+
+```bash
+> 1 | let { x, ...y, ...z } = { x: 1, y: 2, z: 3};
+    |              ^
+# Previous behavior:
+# x = 1
+# y = { y: 2, z: 3 }
+# z = { y: 2, z: 3 }
+```
+
+Before y and z would just be the same value anyway so there is no reason to need to have both.
+
+**SyntaxError**: A trailing comma is not permitted after the rest element (1:16)
+
+```js
+let { x, y, ...z, } = obj;
+```
+
+The rationale for this is that the use case for trailing comma is that you can add something at the end without affecting the line above. Since a RestProperty always has to be the last property it doesn't make sense.
 
 ---
 
-**New features**
+get / set are valid property names in default assignment (#142) ([@jezell](https://github.com/jezell))
 
-`BigInteger` has been augmented with 5 new methods for bitwise operations:
+```js
+// valid
+function something({ set = null, get = null }) {}
+```
 
-| New method | Description |
-| --- | --- |
-| `and()` | performs a bitwise `AND` operation on two numbers |
-| `or()` | performs a bitwise `OR` operation on two numbers |
-| `xor()` | performs a bitwise `XOR` operation on two numbers |
-| `shiftedLeft()` | returns the number shifted left by a number of bits |
-| `shiftedRight()` | returns the number shifted right by a number of bits |
+## v6.11.2 (2016-09-23)
 
-Thanks to @DASPRiD 👍
+### Bug Fix
 
-## [0.7.3](https://github.com/brick/math/releases/tag/0.7.3) - 2018-08-20
+- [#139](https://github.com/babel/babylon/issues/139) Don't do the duplicate check if not an identifier (#140) @hzoo
 
-**New method:** `BigDecimal::hasNonZeroFractionalPart()`
+```js
+// regression with duplicate export check
+SyntaxError: ./typography.js: `undefined` has already been exported. Exported identifiers must be unique. (22:13)
+  20 |
+  21 | export const { rhythm } = typography;
+> 22 | export const { TypographyStyle } = typography
+```
 
-**Renamed/deprecated methods:**
+Bail out for now, and make a change to account for destructuring in the next release.
 
-- `BigDecimal::getIntegral()` has been renamed to `getIntegralPart()` and is now deprecated
-- `BigDecimal::getFraction()` has been renamed to `getFractionalPart()` and is now deprecated
+## 6.11.1 (2016-09-22)
 
-## [0.7.2](https://github.com/brick/math/releases/tag/0.7.2) - 2018-07-21
+### Bug Fix
+- [#137](https://github.com/babel/babylon/pull/137) - Fix a regression with duplicate exports - it was erroring on all keys in `Object.prototype`. @danez
 
-**Performance update**
+```javascript
+export toString from './toString';
+```
 
-`BigInteger::parse()` and `toBase()` now use GMP's built-in base conversion features when available.
+```bash
+`toString` has already been exported. Exported identifiers must be unique. (1:7)
+> 1 | export toString from './toString';
+    |        ^
+  2 |
+```
 
-## [0.7.1](https://github.com/brick/math/releases/tag/0.7.1) - 2018-03-01
+## 6.11.0 (2016-09-22)
 
-This is a maintenance release, no code has been changed.
+### Spec Compliance (will break CI)
 
-- When installed with `--no-dev`, the autoloader does not autoload tests anymore
-- Tests and other files unnecessary for production are excluded from the dist package
+- Disallow duplicate named exports ([#107](https://github.com/babel/babylon/pull/107)) @kaicataldo
 
-This will help make installations more compact.
+```js
+// Only one default export allowed per module. (2:9)
+export default function() {};
+export { foo as default };
 
-## [0.7.0](https://github.com/brick/math/releases/tag/0.7.0) - 2017-10-02
+// Only one default export allowed per module. (2:0)
+export default {};
+export default function() {};
 
-Methods renamed:
+// `Foo` has already been exported. Exported identifiers must be unique. (2:0)
+export { Foo };
+export class Foo {};
+```
 
-- `BigNumber:sign()` has been renamed to `getSign()`
-- `BigDecimal::unscaledValue()` has been renamed to `getUnscaledValue()`
-- `BigDecimal::scale()` has been renamed to `getScale()`
-- `BigDecimal::integral()` has been renamed to `getIntegral()`
-- `BigDecimal::fraction()` has been renamed to `getFraction()`
-- `BigRational::numerator()` has been renamed to `getNumerator()`
-- `BigRational::denominator()` has been renamed to `getDenominator()`
+### New Feature (Syntax)
 
-Classes renamed:
+- Add support for computed class property names ([#121](https://github.com/babel/babylon/pull/121)) @motiz88
 
-- `ArithmeticException` has been renamed to `MathException`
+```js
+// AST
+interface ClassProperty <: Node {
+  type: "ClassProperty";
+  key: Identifier;
+  value: Expression;
+  computed: boolean; // added
+}
+```
 
-## [0.6.2](https://github.com/brick/math/releases/tag/0.6.2) - 2017-10-02
+```js
+// with "plugins": ["classProperties"]
+class Foo {
+  [x]
+  ['y']
+}
 
-The base class for all exceptions is now `MathException`.
-`ArithmeticException` has been deprecated, and will be removed in 0.7.0.
+class Bar {
+  [p]
+  [m] () {}
+}
+ ```
 
-## [0.6.1](https://github.com/brick/math/releases/tag/0.6.1) - 2017-10-02
+### Bug Fix
 
-A number of methods have been renamed:
+- Fix `static` property falling through in the declare class Flow AST ([#135](https://github.com/babel/babylon/pull/135)) @danharper
 
-- `BigNumber:sign()` is deprecated; use `getSign()` instead
-- `BigDecimal::unscaledValue()` is deprecated; use `getUnscaledValue()` instead
-- `BigDecimal::scale()` is deprecated; use `getScale()` instead
-- `BigDecimal::integral()` is deprecated; use `getIntegral()` instead
-- `BigDecimal::fraction()` is deprecated; use `getFraction()` instead
-- `BigRational::numerator()` is deprecated; use `getNumerator()` instead
-- `BigRational::denominator()` is deprecated; use `getDenominator()` instead
+```js
+declare class X {
+    a: number;
+    static b: number; // static
+    c: number; // this was being marked as static in the AST as well
+}
+```
 
-The old methods will be removed in version 0.7.0.
+### Polish
 
-## [0.6.0](https://github.com/brick/math/releases/tag/0.6.0) - 2017-08-25
+- Rephrase "assigning/binding to rvalue" errors to include context ([#119](https://github.com/babel/babylon/pull/119)) @motiz88
 
-- Minimum PHP version is now [7.1](https://gophp71.org/); for PHP 5.6 and PHP 7.0 support, use version `0.5`
-- Deprecated method `BigDecimal::withScale()` has been removed; use `toScale()` instead
-- Method `BigNumber::toInteger()` has been renamed to `toInt()`
+```js
+// Used to error with:
+// SyntaxError: Assigning to rvalue (1:0)
 
-## [0.5.4](https://github.com/brick/math/releases/tag/0.5.4) - 2016-10-17
+// Now:
+// Invalid left-hand side in assignment expression (1:0)
+3 = 4
 
-`BigNumber` classes now implement [JsonSerializable](http://php.net/manual/en/class.jsonserializable.php).
-The JSON output is always a string.
+// Invalid left-hand side in for-in statement (1:5)
+for (+i in {});
+```
 
-## [0.5.3](https://github.com/brick/math/releases/tag/0.5.3) - 2016-03-31
+### Internal
 
-This is a bugfix release. Dividing by a negative power of 1 with the same scale as the dividend could trigger an incorrect optimization which resulted in a wrong result. See #6.
+- Fix call to `this.parseMaybeAssign` with correct arguments ([#133](https://github.com/babel/babylon/pull/133)) @danez
+- Add semver note to changelog ([#131](https://github.com/babel/babylon/pull/131)) @hzoo
 
-## [0.5.2](https://github.com/brick/math/releases/tag/0.5.2) - 2015-08-06
+## 6.10.0 (2016-09-19)
 
-The `$scale` parameter of `BigDecimal::dividedBy()` is now optional again.
+> We plan to include some spec compliance bugs in patch versions. An example was the multiple default exports issue.
 
-## [0.5.1](https://github.com/brick/math/releases/tag/0.5.1) - 2015-07-05
+### Spec Compliance
 
-**New method: `BigNumber::toScale()`**
+* Implement ES2016 check for simple parameter list in strict mode ([#106](https://github.com/babel/babylon/pull/106)) (Timothy Gu)
 
-This allows to convert any `BigNumber` to a `BigDecimal` with a given scale, using rounding if necessary.
+> It is a Syntax Error if ContainsUseStrict of FunctionBody is true and IsSimpleParameterList of FormalParameters is false. https://tc39.github.io/ecma262/2016/#sec-function-definitions-static-semantics-early-errors
 
-## [0.5.0](https://github.com/brick/math/releases/tag/0.5.0) - 2015-07-04
+More Context: [tc39-notes](https://github.com/rwaldron/tc39-notes/blob/master/es7/2015-07/july-29.md#611-the-scope-of-use-strict-with-respect-to-destructuring-in-parameter-lists)
 
-**New features**
-- Common `BigNumber` interface for all classes, with the following methods:
-  - `sign()` and derived methods (`isZero()`, `isPositive()`, ...)
-  - `compareTo()` and derived methods (`isEqualTo()`, `isGreaterThan()`, ...) that work across different `BigNumber` types
-  - `toBigInteger()`, `toBigDecimal()`, `toBigRational`() conversion methods
-  - `toInteger()` and `toFloat()` conversion methods to native types
-- Unified `of()` behaviour: every class now accepts any type of number, provided that it can be safely converted to the current type
-- New method: `BigDecimal::exactlyDividedBy()`; this method automatically computes the scale of the result, provided that the division yields a finite number of digits
-- New methods: `BigRational::quotient()` and `remainder()`
-- Fine-grained exceptions: `DivisionByZeroException`, `RoundingNecessaryException`, `NumberFormatException`
-- Factory methods `zero()`, `one()` and `ten()` available in all classes
-- Rounding mode reintroduced in `BigInteger::dividedBy()`
+For example:
 
-This release also comes with many performance improvements.
+```js
+// this errors because it uses destructuring and default parameters
+// in a function with a "use strict" directive
+function a([ option1, option2 ] = []) {
+  "use strict";
+}
+ ```
 
----
+The solution would be to use a top level "use strict" or to remove the destructuring or default parameters when using a function + "use strict" or to.
 
-**Breaking changes**
-- `BigInteger`:
-  - `getSign()` is renamed to `sign()`
-  - `toString()` is renamed to `toBase()`
-  - `BigInteger::dividedBy()` now throws an exception by default if the remainder is not zero; use `quotient()` to get the previous behaviour
-- `BigDecimal`:
-  - `getSign()` is renamed to `sign()`
-  - `getUnscaledValue()` is renamed to `unscaledValue()`
-  - `getScale()` is renamed to `scale()`
-  - `getIntegral()` is renamed to `integral()`
-  - `getFraction()` is renamed to `fraction()`
-  - `divideAndRemainder()` is renamed to `quotientAndRemainder()`
-  - `dividedBy()` now takes a **mandatory** `$scale` parameter **before** the rounding mode
-  - `toBigInteger()` does not accept a `$roundingMode` parameter anymore
-  - `toBigRational()` does not simplify the fraction anymore; explicitly add `->simplified()` to get the previous behaviour
-- `BigRational`:
-  - `getSign()` is renamed to `sign()`
-  - `getNumerator()` is renamed to  `numerator()`
-  - `getDenominator()` is renamed to  `denominator()`
-  - `of()` is renamed to `nd()`, while `parse()` is renamed to `of()`
-- Miscellaneous:
-  - `ArithmeticException` is moved to an `Exception\` sub-namespace
-  - `of()` factory methods now throw `NumberFormatException` instead of `InvalidArgumentException`
+### New Feature
 
-## [0.4.3](https://github.com/brick/math/releases/tag/0.4.3) - 2016-03-31
+* Exact object type annotations for Flow plugin ([#104](https://github.com/babel/babylon/pull/104)) (Basil Hosmer)
 
-Backport of two bug fixes from the 0.5 branch:
-- `BigInteger::parse()` did not always throw `InvalidArgumentException` as expected
-- Dividing by a negative power of 1 with the same scale as the dividend could trigger an incorrect optimization which resulted in a wrong result. See #6.
+Added to flow in https://github.com/facebook/flow/commit/c710c40aa2a115435098d6c0dfeaadb023cd39b8
 
-## [0.4.2](https://github.com/brick/math/releases/tag/0.4.2) - 2015-06-16
+Looks like:
 
-New method: `BigDecimal::stripTrailingZeros()`
+```js
+var a : {| x: number, y: string |} = { x: 0, y: 'foo' };
+```
 
-## [0.4.1](https://github.com/brick/math/releases/tag/0.4.1) - 2015-06-12
+### Bug Fixes
 
-Introducing a `BigRational` class, to perform calculations on fractions of any size.
+* Include `typeParameter` location in `ArrowFunctionExpression` ([#126](https://github.com/babel/babylon/pull/126)) (Daniel Tschinder)
+* Error on invalid flow type annotation with default assignment ([#122](https://github.com/babel/babylon/pull/122)) (Dan Harper)
+* Fix Flow return types on arrow functions ([#124](https://github.com/babel/babylon/pull/124)) (Dan Harper)
 
-## [0.4.0](https://github.com/brick/math/releases/tag/0.4.0) - 2015-06-12
+### Misc
 
-Rounding modes have been removed from `BigInteger`, and are now a concept specific to `BigDecimal`.
+* Add tests for export extensions ([#127](https://github.com/babel/babylon/pull/127)) (Daniel Tschinder)
+* Fix Contributing guidelines [skip ci] (Daniel Tschinder)
 
-`BigInteger::dividedBy()` now always returns the quotient of the division.
+## 6.9.2 (2016-09-09)
 
-## [0.3.5](https://github.com/brick/math/releases/tag/0.3.5) - 2016-03-31
+The only change is to remove the `babel-runtime` dependency by compiling with Babel's ES2015 loose mode. So using babylon standalone should be smaller.
 
-Backport of two bug fixes from the 0.5 branch:
+## 6.9.1 (2016-08-23)
 
-- `BigInteger::parse()` did not always throw `InvalidArgumentException` as expected
-- Dividing by a negative power of 1 with the same scale as the dividend could trigger an incorrect optimization which resulted in a wrong result. See #6.
+This release contains mainly small bugfixes but also updates babylons default mode to es2017. The features for `exponentiationOperator`, `asyncFunctions` and `trailingFunctionCommas` which previously needed to be activated via plugin are now enabled by default and the plugins are now no-ops.
 
-## [0.3.4](https://github.com/brick/math/releases/tag/0.3.4) - 2015-06-11
+### Bug Fixes
 
-New methods:
-- `BigInteger::remainder()` returns the remainder of a division only
-- `BigInteger::gcd()` returns the greatest common divisor of two numbers
+- Fix issues with default object params in async functions ([#96](https://github.com/babel/babylon/pull/96)) @danez
+- Fix issues with flow-types and async function ([#95](https://github.com/babel/babylon/pull/95)) @danez
+- Fix arrow functions with destructuring, types & default value ([#94](https://github.com/babel/babylon/pull/94)) @danharper
+- Fix declare class with qualified type identifier ([#97](https://github.com/babel/babylon/pull/97)) @danez
+- Remove exponentiationOperator, asyncFunctions, trailingFunctionCommas plugins and enable them by default ([#98](https://github.com/babel/babylon/pull/98)) @danez
 
-## [0.3.3](https://github.com/brick/math/releases/tag/0.3.3) - 2015-06-07
+## 6.9.0 (2016-08-16)
 
-Fix `toString()` not handling negative numbers.
+### New syntax support
 
-## [0.3.2](https://github.com/brick/math/releases/tag/0.3.2) - 2015-06-07
+- Add JSX spread children ([#42](https://github.com/babel/babylon/pull/42)) @calebmer
 
-`BigInteger` and `BigDecimal` now have a `getSign()` method that returns:
-- `-1` if the number is negative
-- `0` if the number is zero
-- `1` if the number is positive
+(Be aware that React is not going to support this syntax)
 
-## [0.3.1](https://github.com/brick/math/releases/tag/0.3.1) - 2015-06-05
+```js
+<div>
+  {...todos.map(todo => <Todo key={todo.id} todo={todo}/>)}
+</div>
+```
 
-Minor performance improvements
+- Add support for declare module.exports ([#72](https://github.com/babel/babylon/pull/72)) @danez
 
-## [0.3.0](https://github.com/brick/math/releases/tag/0.3.0) - 2015-06-04
+```js
+declare module "foo" {
+  declare module.exports: {}
+}
+```
 
-The `$roundingMode` and `$scale` parameters have been swapped in `BigDecimal::dividedBy()`.
+### New Features
 
-## [0.2.2](https://github.com/brick/math/releases/tag/0.2.2) - 2015-06-04
+- If supplied, attach filename property to comment node loc. ([#80](https://github.com/babel/babylon/pull/80)) @divmain
+- Add identifier name to node loc field ([#90](https://github.com/babel/babylon/pull/90)) @kittens
 
-Stronger immutability guarantee for `BigInteger` and `BigDecimal`.
+### Bug Fixes
 
-So far, it would have been possible to break immutability of these classes by calling the `unserialize()` internal function. This release fixes that.
+- Fix exponential operator to behave according to spec ([#75](https://github.com/babel/babylon/pull/75)) @danez
+- Fix lookahead to not add comments to arrays which are not cloned ([#76](https://github.com/babel/babylon/pull/76)) @danez
+- Fix accidental fall-through in Flow type parsing. ([#82](https://github.com/babel/babylon/pull/82)) @xiemaisi
+- Only allow declares inside declare module ([#73](https://github.com/babel/babylon/pull/73)) @danez
+- Small fix for parsing type parameter declarations ([#83](https://github.com/babel/babylon/pull/83)) @gabelevi
+- Fix arrow param locations with flow types ([#57](https://github.com/babel/babylon/pull/57)) @danez
+- Fixes SyntaxError position with flow optional type ([#65](https://github.com/babel/babylon/pull/65)) @danez
 
-## [0.2.1](https://github.com/brick/math/releases/tag/0.2.1) - 2015-06-02
+### Internal
 
-Added `BigDecimal::divideAndRemainder()`
+- Add codecoverage to tests @danez
+- Fix tests to not save expected output if we expect the test to fail @danez
+- Make a shallow clone of babel for testing @danez
+- chore(package): update cross-env to version 2.0.0 ([#77](https://github.com/babel/babylon/pull/77)) @greenkeeperio-bot
+- chore(package): update ava to version 0.16.0 ([#86](https://github.com/babel/babylon/pull/86)) @greenkeeperio-bot
+- chore(package): update babel-plugin-istanbul to version 2.0.0 ([#89](https://github.com/babel/babylon/pull/89)) @greenkeeperio-bot
+- chore(package): update nyc to version 8.0.0 ([#88](https://github.com/babel/babylon/pull/88)) @greenkeeperio-bot
 
-## [0.2.0](https://github.com/brick/math/releases/tag/0.2.0) - 2015-05-22
+## 6.8.4 (2016-07-06)
 
-- `min()` and `max()` do not accept an `array` anymore, but a variable number of parameters
-- **minimum PHP version is now 5.6**
-- continuous integration with PHP 7
+### Bug Fixes
 
-## [0.1.1](https://github.com/brick/math/releases/tag/0.1.1) - 2014-09-01
+- Fix the location of params, when flow and default value used ([#68](https://github.com/babel/babylon/pull/68)) @danez
 
-- Added `BigInteger::power()`
-- Added HHVM support
+## 6.8.3 (2016-07-02)
 
-## [0.1.0](https://github.com/brick/math/releases/tag/0.1.0) - 2014-08-31
+### Bug Fixes
 
-First beta release.
+- Fix performance regression introduced in 6.8.2 with conditionals ([#63](https://github.com/babel/babylon/pull/63)) @danez
 
+## 6.8.2 (2016-06-24)
+
+### Bug Fixes
+
+- Fix parse error with yielding jsx elements in generators `function* it() { yield <a></a>; }` ([#31](https://github.com/babel/babylon/pull/31)) @eldereal
+- When cloning nodes do not clone its comments ([#24](https://github.com/babel/babylon/pull/24)) @danez
+- Fix parse errors when using arrow functions with an spread element and return type `(...props): void => {}` ([#10](https://github.com/babel/babylon/pull/10)) @danez
+- Fix leading comments added from previous node ([#23](https://github.com/babel/babylon/pull/23)) @danez
+- Fix parse errors with flow's optional arguments `(arg?) => {}` ([#19](https://github.com/babel/babylon/pull/19)) @danez
+- Support negative numeric type literals @kittens
+- Remove line terminator restriction after await keyword @kittens
+- Remove grouped type arrow restriction as it seems flow no longer has it @kittens
+- Fix parse error with generic methods that have the name `get` or `set` `class foo { get() {} }` ([#55](https://github.com/babel/babylon/pull/55)) @vkurchatkin
+- Fix parse error with arrow functions that have flow type parameter declarations `<T>(x: T): T => x;` ([#54](https://github.com/babel/babylon/pull/54)) @gabelevi
+
+### Documentation
+
+- Document AST differences from ESTree ([#41](https://github.com/babel/babylon/pull/41)) @nene
+- Move ast spec from babel/babel ([#46](https://github.com/babel/babylon/pull/46)) @hzoo
+
+### Internal
+
+- Enable skipped tests ([#16](https://github.com/babel/babylon/pull/16)) @danez
+- Add script to test latest version of babylon with babel ([#21](https://github.com/babel/babylon/pull/21)) @danez
+- Upgrade test runner ava @kittens
+- Add missing generate-identifier-regex script @kittens
+- Rename parser context types @kittens
+- Add node v6 to travis testing @hzoo
+- Update to Unicode v9 ([#45](https://github.com/babel/babylon/pull/45)) @mathiasbynens
+
+## 6.8.1 (2016-06-06)
+
+### New Feature
+
+- Parse type parameter declarations with defaults like `type Foo<T = string> = T`
+
+### Bug Fixes
+- Type parameter declarations need 1 or more type parameters.
+- The existential type `*` is not a valid type parameter.
+- The existential type `*` is a primary type
+
+### Spec Compliance
+- The param list for type parameter declarations now consists of `TypeParameter` nodes
+- New `TypeParameter` AST Node (replaces using the `Identifier` node before)
+
+```
+interface TypeParameter <: Node {
+  bound: TypeAnnotation;
+  default: TypeAnnotation;
+  name: string;
+  variance: "plus" | "minus";
+}
+```
+
+## 6.8.0 (2016-05-02)
+
+#### New Feature
+
+##### Parse Method Parameter Decorators ([#12](https://github.com/babel/babylon/pull/12))
+
+> [Method Parameter Decorators](https://goo.gl/8MmCMG) is now a TC39 [stage 0 proposal](https://github.com/tc39/ecma262/blob/master/stage0.md).
+
+Examples:
+
+```js
+class Foo {
+  constructor(@foo() x, @bar({ a: 123 }) @baz() y) {}
+}
+
+export default function func(@foo() x, @bar({ a: 123 }) @baz() y) {}
+
+var obj = {
+  method(@foo() x, @bar({ a: 123 }) @baz() y) {}
+};
+```
+
+##### Parse for-await statements (w/ `asyncGenerators` plugin) ([#17](https://github.com/babel/babylon/pull/17))
+
+There is also a new node type, `ForAwaitStatement`.
+
+> [Async generators and for-await](https://github.com/tc39/proposal-async-iteration) are now a [stage 2 proposal](https://github.com/tc39/ecma262#current-proposals).
+
+Example:
+
+```js
+async function f() {
+  for await (let x of y);
+}
+```
